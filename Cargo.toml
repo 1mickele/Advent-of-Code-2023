@@ -35,5 +35,11 @@ path = "./src/day5.rs"
 test = false
 bench = true
 
+[[bin]]
+name = "day6"
+path = "./src/day6.rs"
+test = false
+bench = true
+
 [dependencies]
 itertools = "0.12.0"
