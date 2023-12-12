@@ -1,14 +1,11 @@
 use std::{path::Path, fs};
-use std::collections::HashSet;
-
-use itertools::enumerate;
 
 fn parse(filename: impl AsRef<Path>) -> (Vec<(usize, usize)>, usize) {
     let raw_string = fs::read_to_string(filename).expect("Unable to read file");
     let width = raw_string.chars()
         .position(|c| c == '\n').unwrap() + 1;
     (Vec::from_iter(raw_string.chars().enumerate()
-        .filter(|(i, x)| *x == '#')
+        .filter(|(_, x)| *x == '#')
         .map(|(i, _)| (i / width, i % width))), width - 1)
 }
 
