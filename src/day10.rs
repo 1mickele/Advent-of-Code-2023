@@ -51,7 +51,7 @@ fn compute_table() -> Vec<(u8, Dirs, Dirs)> {
 fn main() {
     
     let (mut map, width, mut pos, mut dir) = parse();
-    map.get_mut(pos).unwrap().0 = b'|'; // hard-coded manual map patching ahah
+    map.get_mut(pos).unwrap().0 = b'|'; // hard-coded map patching ahah
 
     let mut s1 = 0;
     let step_table = compute_table();
