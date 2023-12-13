@@ -112,10 +112,7 @@ fn main() {
             (s.split_whitespace().collect::<Vec<_>>(), cgs)
         }).collect();
 
-        let mut idx = 0; 
         let s2 :usize = rs.iter().map(|(st, cgs)| {
-            println!("{}", idx);
-            idx += 1;
             overall(&st[0..], &cgs[0..])
         }).sum();
 
