@@ -1,4 +1,4 @@
-use std::{path::Path, fs, usize, vec};
+use std::{path::Path, fs, usize};
 
 use itertools::Itertools;
 
