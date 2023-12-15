@@ -71,8 +71,8 @@ fn load(table: &Vec<Rc<RefCell<char>>>, side_len: usize) -> usize {
 }
 
 fn main() {
-    let side_len = 10; 
-    let raw_string = fs::read_to_string("./inputs/test.txt")
+    let side_len = 100; 
+    let raw_string = fs::read_to_string("./inputs/input14.txt")
         .expect("Unable to read file");
 
     let platform : Vec<Rc<RefCell<char>>> = raw_string.chars().filter(|c| *c != '\n')
