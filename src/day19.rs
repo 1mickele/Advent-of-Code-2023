@@ -73,7 +73,6 @@ fn accept(
 
 fn solver(
     curr: &String,
-    // curr: &Vec<(Option<(char, i128)>, String)>,
     rules : &HashMap<String, Vec<(Option<(char, i128)>, String)>>,
     mut constraints : HashMap<char, (i128, i128)>
 ) -> i128 
