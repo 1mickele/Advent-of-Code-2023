@@ -201,78 +201,6 @@ fn build_graph(chart: &mut Grid<TileType>) -> Vec<Vec<(usize, usize)>>
     nedges
 }
 
-/*
-// Randomized greedy algorithm using the distance to the end node as the euristic
-// does not perform well
-
-// run dijkstra to compute distance to the end node
-fn distance_end(v: &Vec<Vertex>, 
-    e: &HashMap<Vertex, Vec<(Vertex, usize)>>
-) -> HashMap<Vertex, usize> {
-    let end = (22_usize, 21_usize);
-    // let end = (140_usize, 139_usize);
-
-    let mut dist : HashMap<Vertex, usize> = HashMap::from_iter(
-        v.iter().map(|v| (v.clone(), usize::MAX)));
-    let mut queue : PriorityQueue<Vertex, isize> = PriorityQueue::from(vec![(end, 0)]);
-    
-    while let Some((v, _)) = queue.pop() {
-        for (u, c) in &e[&v] {
-            let d = *c + dist[&v];
-            if dist[&u] > d {
-                *dist.get_mut(&u).unwrap() = d;
-                queue.push(*u, -(d as isize));
-            }
-        }
-    }
-
-    dist
-}
-
-fn traverse2(chart: &mut Grid<TileType>) -> usize {
-    let start = (0_usize, 1_usize);
-    // let end = (22_usize, 21_usize);
-    let end = (140_usize, 139_usize);
-
-    let (vertices, edges) = build_graph(chart);
-    // dbg!(&v, &e, v.len(), e.len());
-    
-    let distances = distance_end(&vertices, &edges);
-    dbg!(&distances);
-
-    let mut s2 = 0_usize;
-
-    for _ in 0..1000 {
-        let mut boundary : PriorityQueue<Vertex, usize> = PriorityQueue::from(
-            edges[&start].iter().map(|(u, _)| 
-                (u.clone(), rand::thread_rng().gen_range(0..10))).collect_vec()
-        );
-        let mut longest_path : HashMap<Vertex, usize> = HashMap::from([(start, 0)]);
-
-        while let Some((v, _)) = boundary.pop() {
-            let (_, d) = edges[&v].iter()
-                .filter(|(u, _)| longest_path.keys().contains(u))
-                .map(|(u, c)| (u, longest_path[u] + c))
-                .max_by_key(|(_, c)| *c).unwrap();
-
-            longest_path.insert(v, d);
-            if v == end { break; }
-            boundary.extend(edges[&v].iter()
-                .filter(|(u, _)| !longest_path.keys().contains(u))
-                .map(|(u, c)| (u.clone(), 
-                    if *u != end { rand::thread_rng().gen_range(1..*c + 100) } else { 0 }
-                )));
-        }
-        
-        s2 = s2.max(longest_path[&end]);
-    }
-
-    // dbg!(&edges[&(9, 103)]);
-
-    s2
-}
-*/
-
 struct GraphPath {
     steps: usize,
     current: usize,
@@ -330,7 +258,7 @@ fn main() {
 /*
 // Failed attempts: 
 // - small perturbation of the shortest path
-// - random perturbation of a random path based on distance-to-end heuristic
+// - randomized greedy algorithm using the distance to the end node as the euristic
 // - random local bruteforcing starting from a random path
 
     // .. main
@@ -479,6 +407,73 @@ fn traverse3(edges: &Vec<Vec<(usize, usize)>>) -> usize {
     dbg!(t);
 
     t
+}
+
+// run dijkstra to compute distance to the end node
+fn distance_end(v: &Vec<Vertex>, 
+    e: &HashMap<Vertex, Vec<(Vertex, usize)>>
+) -> HashMap<Vertex, usize> {
+    let end = (22_usize, 21_usize);
+    // let end = (140_usize, 139_usize);
+
+    let mut dist : HashMap<Vertex, usize> = HashMap::from_iter(
+        v.iter().map(|v| (v.clone(), usize::MAX)));
+    let mut queue : PriorityQueue<Vertex, isize> = PriorityQueue::from(vec![(end, 0)]);
+    
+    while let Some((v, _)) = queue.pop() {
+        for (u, c) in &e[&v] {
+            let d = *c + dist[&v];
+            if dist[&u] > d {
+                *dist.get_mut(&u).unwrap() = d;
+                queue.push(*u, -(d as isize));
+            }
+        }
+    }
+
+    dist
+}
+
+fn traverse2(chart: &mut Grid<TileType>) -> usize {
+    let start = (0_usize, 1_usize);
+    // let end = (22_usize, 21_usize);
+    let end = (140_usize, 139_usize);
+
+    let (vertices, edges) = build_graph(chart);
+    // dbg!(&v, &e, v.len(), e.len());
+    
+    let distances = distance_end(&vertices, &edges);
+    dbg!(&distances);
+
+    let mut s2 = 0_usize;
+
+    for _ in 0..1000 {
+        let mut boundary : PriorityQueue<Vertex, usize> = PriorityQueue::from(
+            edges[&start].iter().map(|(u, _)| 
+                (u.clone(), rand::thread_rng().gen_range(0..10))).collect_vec()
+        );
+        let mut longest_path : HashMap<Vertex, usize> = HashMap::from([(start, 0)]);
+
+        while let Some((v, _)) = boundary.pop() {
+            let (_, d) = edges[&v].iter()
+                .filter(|(u, _)| longest_path.keys().contains(u))
+                .map(|(u, c)| (u, longest_path[u] + c))
+                .max_by_key(|(_, c)| *c).unwrap();
+
+            longest_path.insert(v, d);
+            if v == end { break; }
+            boundary.extend(edges[&v].iter()
+                .filter(|(u, _)| !longest_path.keys().contains(u))
+                .map(|(u, c)| (u.clone(), 
+                    if *u != end { rand::thread_rng().gen_range(1..*c + 100) } else { 0 }
+                )));
+        }
+        
+        s2 = s2.max(longest_path[&end]);
+    }
+
+    // dbg!(&edges[&(9, 103)]);
+
+    s2
 }
 
 */
