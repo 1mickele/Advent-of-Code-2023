@@ -45,8 +45,6 @@ fn collapse(snapshot : &mut Vec<(Point, Point)>) -> usize {
         }
     }
 
-    // dbg!(&floors, &snapshot, collapsed);
-
     collapsed
 }
 
