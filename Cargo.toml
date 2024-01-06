@@ -149,10 +149,17 @@ path = "./src/day24.rs"
 test = false
 bench = true
 
+[[bin]]
+name = "day25"
+path = "./src/day25.rs"
+test = false
+bench = true
+
 [dependencies]
 grid = "0.13.0"
 itertools = "0.12.0"
 nalgebra = "0.32.3"
 num = "0.4.1"
 priority-queue = "1.3.2"
+queues = "1.1.0"
 rand = "0.8.5"
