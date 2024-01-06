@@ -8,7 +8,7 @@ type Pos3d = Vector3<f64>;
 type Vel3d = Vector3<f64>;
 
 fn parse() -> Vec<(Pos3d, Vel3d)> {
-    let raw_string = fs::read_to_string("./inputs/test.txt")
+    let raw_string = fs::read_to_string("./inputs/input24.txt")
         .expect("couldn't read file");
 
     fn load<T : Num + Clone + Debug + FromStr + Zero + 'static> (t: &str) -> Vector3<T> {
@@ -45,24 +45,6 @@ fn intersect2d(a: &(Pos3d, Vel3d), b: &(Pos3d, Vel3d))
 
     Some(*pa)
 }
-
-/*
-Hyperboloid containing the first three lines:
-- H(x,y,z) = 59982340340060761896*x^2-82550366903732551157088452192647548*x
-    +8924703592837931616*y^2+184242198509970918180*x*y
-    -45468181754631286575654692680454664*y-77065948406811520926*z^2
-    +47637216115500910164*x*z-40932281436446749650*y*z
-    +33533000373563936579883535824937764*z
-    +12254642922941667093892889270024359593244979209140 = 0
-
-- The 4th hail intersects the H(x,y,z) = 0 at time t=866877808876 (there is another
-    intersection point but it is not an integer one). The point is 
-    (292931046564083, 176777587456154, 318986369932636)
-
-- The direction is (-26, 331, -53)
-
-
-*/
 
 fn main() {
     let hails = parse();
