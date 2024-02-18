@@ -1,3 +1,4 @@
 /target
 /.vscode
 src/15.py
+/.src/day12old.rs

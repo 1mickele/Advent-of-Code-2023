@@ -78,6 +78,12 @@ test = false
 bench = true
 
 [[bin]]
+name = "day12n"
+path = "./src/day12n.rs"
+test = false
+bench = true
+
+[[bin]]
 name = "day13"
 path = "./src/day13.rs"
 test = false
